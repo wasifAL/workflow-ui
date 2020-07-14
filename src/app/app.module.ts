@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
+import {NgxWebstorageModule} from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxWebstorageModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
