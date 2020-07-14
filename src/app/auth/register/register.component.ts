@@ -14,10 +14,10 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
   constructor(private authService: AuthService) {
-    this.registerRequestPayload={
-      username:'',
-      email:'',
-      password:''
+    this.registerRequestPayload = {
+      username: '',
+      email: '',
+      password: ''
     };
   }
 
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line:typedef
   register() {
     this.registerRequestPayload.username = this.registerForm.get('username').value;
     this.registerRequestPayload.email = this.registerForm.get('email').value;
