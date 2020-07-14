@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginRequestPayload} from './loginRequest.payload';
 import {AuthService} from '../shared/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +11,14 @@ import {AuthService} from '../shared/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   isError: boolean;
+  registerSuccessMessage: string;
   loginForm: FormGroup;
   loginRequestPayload: LoginRequestPayload;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute,
+              private router: Router, private toastr: ToastrService) {
     this.isError = false;
     this.loginRequestPayload = {
       username: '',
@@ -26,6 +31,14 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
+
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        if (params.registered !== undefined && params.registered === 'true') {
+          this.toastr.success('Signup Successful');
+          this.registerSuccessMessage = 'You can login now using your username and password';
+        }
+      });
   }
 
   // tslint:disable-next-line:typedef
@@ -35,6 +48,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequestPayload).subscribe(() => {
       this.isError = false;
       console.log('Login Successful');
+      this.router.navigateByUrl('/');
+      this.toastr.success('Login Successful');
     }, () => {
       this.isError = true;
       console.log('Login Failed');

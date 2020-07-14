@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {RegisterRequestPayload} from './registerRequest.payload';
 import {AuthService} from '../shared/auth.service';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,7 @@ export class RegisterComponent implements OnInit {
   registerRequestPayload: RegisterRequestPayload;
   registerForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.registerRequestPayload = {
       username: '',
       email: '',
@@ -21,6 +23,7 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  // tslint:disable-next-line:typedef
   ngOnInit() {
     this.registerForm = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -37,8 +40,10 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(this.registerRequestPayload).subscribe(() => {
       console.log('Registration Successful');
+      this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
     }, () => {
       console.log('Registration Failed');
+      this.toastr.error('Registration Failed! Please try again');
     });
   }
 
