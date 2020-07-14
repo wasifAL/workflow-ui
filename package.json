@@ -43,6 +43,7 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5",
-    "ngx-webstorage": "6.0.0"
+    "ngx-webstorage": "6.0.0",
+    "ngx-toastr": "13.0.0"
   }
 }
