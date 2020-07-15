@@ -1,0 +1,10 @@
+header .container-fluid{
+  padding-top: 10px;
+}
+
+header .container-fluid h3{
+  text-align: center;
+  font-family: "Roboto Light";
+  color: #0079D3;
+}
+
