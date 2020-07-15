@@ -13,11 +13,16 @@ import { HomeComponent } from './home/home.component';
 
 // project modules
 import { AuthModule } from './auth/auth.module';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TokenInterceptor } from './token-interceptor';
+import { StageactorComponent } from './stageactor/stageactor.component';
+import { StageComponent } from './stage/stage.component';
+import { ApplicationComponent } from './application/application.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     LoginComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    StageComponent,
+    StageactorComponent,
+    ApplicationComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +46,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
