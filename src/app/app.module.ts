@@ -23,6 +23,7 @@ import { StageactorComponent } from './stageactor/stageactor.component';
 import { StageComponent } from './stage/stage.component';
 import { ApplicationComponent } from './application/application.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [
     {
