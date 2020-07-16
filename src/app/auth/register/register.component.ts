@@ -25,6 +25,9 @@ export class RegisterComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/application']);
+    }
     this.registerForm = new FormGroup({
       username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -40,7 +43,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(this.registerRequestPayload).subscribe(() => {
       console.log('Registration Successful');
-      this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
+      this.router.navigate(['/login'], {queryParams: {registered: 'true'}});
     }, () => {
       console.log('Registration Failed');
       this.toastr.error('Registration Failed! Please try again');
