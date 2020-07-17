@@ -1,8 +1,17 @@
-.sidebar{
-  width: 30%;
-  /*float: left;*/
-}
-.body{
-  width: 70%;
+.sidebar, .body {
+  padding-left: 0;
+  padding-right: 0;
   float: left;
 }
+.panel-title span{
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.panel-title span:hover{
+  cursor: default;
+}
+.create, .create:hover{
+  color: white; font-weight: bold;
+}
+
+/*above styles are for UI placement*/
