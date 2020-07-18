@@ -1,29 +1,30 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 // angular components
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 
 // project components
-import { RegisterComponent } from './auth/register/register.component';
-import { LoginComponent } from './auth/login/login.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
+import {RegisterComponent} from './auth/register/register.component';
+import {LoginComponent} from './auth/login/login.component';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {HomeComponent} from './home/home.component';
 
 // project modules
-import { AuthModule } from './auth/auth.module';
+import {AuthModule} from './auth/auth.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { TokenInterceptor } from './token-interceptor';
-import { StageactorComponent } from './stageactor/stageactor.component';
-import { StageComponent } from './stage/stage.component';
-import { ApplicationComponent } from './application/application.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {TokenInterceptor} from './token-interceptor';
+import {StageactorComponent} from './stageactor/stageactor.component';
+import {StageComponent} from './stage/stage.component';
+import {ApplicationComponent} from './application/application.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {UserComponent} from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     StageComponent,
     StageactorComponent,
     ApplicationComponent,
-    SidebarComponent
+    SidebarComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    FontAwesomeModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     {
@@ -57,4 +60,5 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
