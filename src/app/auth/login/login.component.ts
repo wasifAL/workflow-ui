@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/application']);
+      this.router.navigate(['/application']).then(() => {
+        window.location.reload();
+      });
     }
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -52,7 +54,9 @@ export class LoginComponent implements OnInit {
       this.isError = false;
       console.log('Login Successful');
       this.toaster.success('Login Successful');
-      this.router.navigateByUrl('/stage');
+      this.router.navigateByUrl('/stage').then(() => {
+        window.location.reload();
+      });
     }, () => {
       this.isError = true;
       console.log('Login Failed');

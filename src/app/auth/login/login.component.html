@@ -1,9 +1,8 @@
 <div class="login-section">
   <div class="row justify-content-center">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header" style="text-align: center">
+    <div style="max-width: 1000px; margin: auto;">
+      <div class="card" style="max-width: 1000px; margin: auto;">
+        <div class="card-header" style="text-align: center;">
           <h4>Login</h4>
         </div>
         <div class="card-body">
@@ -34,7 +33,7 @@
               <button type="submit" class="login">
                 Login
               </button>
-              <span style="padding-left: 15px">New to SpringReddit? <a routerLink="/sign-up">SIGN UP</a></span>
+              <span style="padding-left: 15px">New to Workflow? <a routerLink="/register">Register</a></span>
             </span>
             <div class="login-failed" *ngIf='this.isError'>
               <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>
@@ -43,6 +42,5 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3"></div>
   </div>
 </div>
