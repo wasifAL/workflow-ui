@@ -8,36 +8,38 @@
         <div class="d-flex justify-content-between mb-3">
           <div class="p-2"><span class="btn"><i class="fa fa-th-list" aria-hidden="true"></i> Stage List</span></div>
           <div class="p-2"><a class="btn bg-info create" (click)="open(content)"> Create </a></div>
+        </div>
       </div>
-    </div>
-    <div class="panel-body">
-      <div class="container">
-        <table class="table table-bordered table-striped table-hover">
-          <thead>
-          <tr>
-            <th>SL</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Next Stage</th>
-            <th>Previous Stage</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let stage of stages; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{stage.name}}</td>
-            <td>{{stage.description}}</td>
-            <td>{{stage.nextStageName}}</td>
-            <td>{{stage.prevStageName}}</td>
-            <td class="text-center">
-              <a class="update" data="{{stage.ID}}">
-                <i class="fa fa-exclamation-circle"></i>
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="panel-body">
+        <div class="container">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+              <th>SL</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Next Stage</th>
+              <th>Sequence</th>
+              <!--            <th>Previous Stage</th>-->
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stage of stages; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{stage.name}}</td>
+              <td>{{stage.description}}</td>
+              <td>{{stage.nextStageName}}</td>
+              <td>{{stage.seq}}</td>
+              <td class="text-center">
+                <a class="update" data="{{stage.ID}}">
+                  <i class="fa fa-exclamation-circle"></i>
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -50,7 +52,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="stageForm" (ngSubmit)="create()">
+      <form [formGroup]="stageForm" id="form" (ngSubmit)="create()">
         <div class="form-group row">
           <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
           <div class="col-md-6">
@@ -79,15 +81,18 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="prevStageID" class="col-md-4 col-form-label text-md-right">Previous Stage</label>
+          <label for="nextStage" class="col-md-4 col-form-label text-md-right">Next Stage</label>
           <div class="col-md-6">
-            <select id="prevStageID" class="form-control" [formControlName]="'prevStageID'" name="prevStageID"></select>
+            <select id="nextStage" class="form-control" [formControlName]="'nextStage'">
+              <option value="" selected disabled >Select Next Stage</option>
+              <option *ngFor="let stage of stages" [ngValue]="stage">{{stage.name}}</option>
+            </select>
           </div>
         </div>
       </form>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-default btn-outline-success save">Save</button>
+      <button type="submit" class="btn btn-default btn-outline-success save" form="form">Save</button>
       <button type="button" class="btn btn-outline-danger" (click)="onClose(modal)">Close</button>
     </div>
   </ng-template>

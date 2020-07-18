@@ -1,5 +1,5 @@
-export class StagePayload {
-  ID: number;
+export interface StagePayload {
+  id: number;
   name: string;
   seq: number;
   description: string;
@@ -8,3 +8,8 @@ export class StagePayload {
   prevStageID: number;
   prevStageName: string;
 }
+
+/*export interface StageSelectorPayload {
+  ID: number;
+  name: string;
+}*/

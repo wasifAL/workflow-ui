@@ -3,15 +3,20 @@
   padding-right: 0;
   float: left;
 }
-.panel-title span{
+
+.panel-title span {
   font-weight: bold;
   text-transform: uppercase;
 }
-.panel-title span:hover{
+
+.panel-title span:hover {
   cursor: default;
 }
-.create, .create:hover{
-  color: white; font-weight: bold;
+
+.create, .create:hover {
+  color: white;
+  font-weight: bold;
+  border-radius: unset;
 }
 
 /*above styles are for UI placement*/
