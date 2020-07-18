@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoginRequestPayload} from './loginRequest.payload';
+import {LoginRequest} from './login.payload';
 import {AuthService} from '../shared/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -15,12 +15,12 @@ export class LoginComponent implements OnInit {
   isError: boolean;
   registerSuccessMessage: string;
   loginForm: FormGroup;
-  loginRequestPayload: LoginRequestPayload;
+  loginRequest: LoginRequest;
 
   constructor(private authService: AuthService, private activatedRoute: ActivatedRoute,
-              private router: Router, private toastr: ToastrService) {
+              private router: Router, private toaster: ToastrService) {
     this.isError = false;
-    this.loginRequestPayload = {
+    this.loginRequest = {
       username: '',
       password: ''
     };
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.queryParams
       .subscribe(params => {
         if (params.registered !== undefined && params.registered === 'true') {
-          this.toastr.success('Registration Successful');
+          this.toaster.success('Registration Successful');
           this.registerSuccessMessage = 'You can login now using your username and password';
         }
       });
@@ -46,13 +46,13 @@ export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   login() {
-    this.loginRequestPayload.username = this.loginForm.get('username').value;
-    this.loginRequestPayload.password = this.loginForm.get('password').value;
-    this.authService.login(this.loginRequestPayload).subscribe(() => {
+    this.loginRequest.username = this.loginForm.get('username').value;
+    this.loginRequest.password = this.loginForm.get('password').value;
+    this.authService.login(this.loginRequest).subscribe(() => {
       this.isError = false;
       console.log('Login Successful');
-      this.router.navigateByUrl('/stageactor');
-      this.toastr.success('Login Successful');
+      this.toaster.success('Login Successful');
+      this.router.navigateByUrl('/stage');
     }, () => {
       this.isError = true;
       console.log('Login Failed');

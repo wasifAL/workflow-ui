@@ -5,3 +5,8 @@ export interface LoginResponse {
   expiresAt: Date;
   username: string;
 }
+
+export interface LoginRequest {
+  username: string;
+  password: string;
+}

@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {RegisterRequestPayload} from '../register/registerRequest.payload';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {LoginRequestPayload} from '../login/loginRequest.payload';
-import {LoginResponse} from '../login/loginResponse.payload';
+import {LoginResponse, LoginRequest} from '../login/login.payload';
 import {LocalStorageService} from 'ngx-webstorage';
 import {map, tap} from 'rxjs/operators';
 
@@ -28,8 +27,8 @@ export class AuthService {
       {responseType: 'text'});
   }
 
-  login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return this.httpClient.post<LoginResponse>(this.serverUrl + 'api/auth/login', loginRequestPayload)
+  login(loginRequest: LoginRequest): Observable<boolean> {
+    return this.httpClient.post<LoginResponse>(this.serverUrl + 'api/auth/login', loginRequest)
       .pipe(map(data => {
         this.localStorage.store('authenticationToken', data.authToken);
         this.localStorage.store('username', data.username);
