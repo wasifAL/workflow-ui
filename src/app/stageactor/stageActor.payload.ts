@@ -1,15 +1,9 @@
-export interface StagePayload {
+export interface StageActorPayload {
   id: number;
   name: string;
-  seq: number;
   description: string;
-  nextStageID: number;
-  nextStageName: string;
-  prevStageID: number;
-  prevStageName: string;
+  stageId: number;
+  stageName: string;
+  employeeId: number;
+  employeeDetails: string;
 }
-
-/*export interface StageSelectorPayload {
-  ID: number;
-  name: string;
-}*/

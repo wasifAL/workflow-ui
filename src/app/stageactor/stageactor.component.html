@@ -1,1 +1,100 @@
-<p>stageactor works!</p>
+<div class="col-3 sidebar">
+  <app-sidebar></app-sidebar>
+</div>
+<div class="col-9 body">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <div class="d-flex justify-content-between mb-3">
+          <div class="p-2"><span class="btn"><i class="fa fa-th-list" aria-hidden="true"></i> Stage Actor List</span></div>
+          <div class="p-2"><a class="btn bg-info create" (click)="open(content)"> Create </a></div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="container">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+              <th>SL</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Next Stage</th>
+              <th>Sequence</th>
+              <!--            <th>Previous Stage</th>-->
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stage of stages; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{stage.name}}</td>
+              <td>{{stage.description}}</td>
+              <td>{{stage.nextStageName}}</td>
+              <td>{{stage.seq}}</td>
+              <td class="text-center">
+                <a class="update" data="{{stage.ID}}">
+                  <i class="fa fa-exclamation-circle"></i>
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Create / Edit Stage-->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Create Stage</h5>
+      <button type="button" class="close" aria-label="Close" (click)="onClose(modal)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="stageForm" id="form" (ngSubmit)="create()">
+        <div class="form-group row">
+          <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+          <div class="col-md-6">
+            <input type="text" id="name" class="form-control" [formControlName]="'name'" name="name"
+                   required autofocus>
+            <span *ngIf="!stageForm.get('name').valid && stageForm.get('name').touched">
+                  Please provide a valid stage name
+                </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+          <div class="col-md-6">
+            <input type="text" id="description" class="form-control" [formControlName]="'description'"
+                   name="description"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="sequence" class="col-md-4 col-form-label text-md-right">Sequence</label>
+          <div class="col-md-6">
+            <input type="number" id="sequence" step="1" class="form-control" [formControlName]="'seq'" name="sequence"
+                   required>
+            <span *ngIf="!stageForm.get('seq').valid && stageForm.get('seq').touched">
+                  sequence cannot be empty
+                </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="nextStage" class="col-md-4 col-form-label text-md-right">Next Stage</label>
+          <div class="col-md-6">
+            <select id="nextStage" class="form-control" [formControlName]="'nextStage'">
+              <option value="" selected disabled >Select Next Stage</option>
+              <option *ngFor="let stage of stages" [ngValue]="stage">{{stage.name}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-default btn-outline-success save" form="form">Save</button>
+      <button type="button" class="btn btn-outline-danger" (click)="onClose(modal)">Close</button>
+    </div>
+  </ng-template>
+
+</div>

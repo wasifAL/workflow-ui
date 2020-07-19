@@ -1,3 +1,4 @@
+// represents stageDTO
 export interface StagePayload {
   id: number;
   name: string;
@@ -8,8 +9,3 @@ export interface StagePayload {
   prevStageID: number;
   prevStageName: string;
 }
-
-/*export interface StageSelectorPayload {
-  ID: number;
-  name: string;
-}*/
