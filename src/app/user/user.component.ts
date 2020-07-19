@@ -77,7 +77,7 @@ export class UserComponent implements OnInit {
     this.user.address = this.userForm.get('address').value;
     this.user.mobile = this.userForm.get('mobile').value;
     this.user.designation = this.userForm.get('designation').value;
-
+    console.log(this.user.role);
     this.userService.create(this.user).subscribe(() => {
       this.toaster.success('User Created Successful');
       window.location.reload();
