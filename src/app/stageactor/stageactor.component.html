@@ -6,7 +6,8 @@
     <div class="panel-heading">
       <div class="panel-title">
         <div class="d-flex justify-content-between mb-3">
-          <div class="p-2"><span class="btn"><i class="fa fa-th-list" aria-hidden="true"></i> Stage Actor List</span></div>
+          <div class="p-2"><span class="btn"><i class="fa fa-th-list" aria-hidden="true"></i> Stage Actor List</span>
+          </div>
           <div class="p-2"><a class="btn bg-info create" (click)="open(content)"> Create </a></div>
         </div>
       </div>
@@ -18,21 +19,20 @@
               <th>SL</th>
               <th>Name</th>
               <th>Description</th>
-              <th>Next Stage</th>
-              <th>Sequence</th>
-              <!--            <th>Previous Stage</th>-->
+              <th>stage</th>
+              <th>Employee</th>
               <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let stage of stages; let i = index">
+            <tr *ngFor="let stageActor of stageActors; let i = index">
               <td>{{i + 1}}</td>
-              <td>{{stage.name}}</td>
-              <td>{{stage.description}}</td>
-              <td>{{stage.nextStageName}}</td>
-              <td>{{stage.seq}}</td>
+              <td>{{stageActor.name}}</td>
+              <td>{{stageActor.description}}</td>
+              <td>{{stageActor.stageName}}</td>
+              <td>{{stageActor.employeeDetails}}</td>
               <td class="text-center">
-                <a class="update" data="{{stage.ID}}">
+                <a class="update" data="{{stageActor.id}}">
                   <i class="fa fa-exclamation-circle"></i>
                 </a>
               </td>
@@ -52,14 +52,14 @@
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="stageForm" id="form" (ngSubmit)="create()">
+      <form [formGroup]="stageActorForm" id="form" (ngSubmit)="create()">
         <div class="form-group row">
           <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
           <div class="col-md-6">
             <input type="text" id="name" class="form-control" [formControlName]="'name'" name="name"
                    required autofocus>
-            <span *ngIf="!stageForm.get('name').valid && stageForm.get('name').touched">
-                  Please provide a valid stage name
+            <span *ngIf="!stageActorForm.get('name').valid && stageActorForm.get('name').touched">
+                  Please provide a valid stage Actor name
                 </span>
           </div>
         </div>
@@ -71,21 +71,20 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="sequence" class="col-md-4 col-form-label text-md-right">Sequence</label>
+          <label for="stage" class="col-md-4 col-form-label text-md-right">Stage</label>
           <div class="col-md-6">
-            <input type="number" id="sequence" step="1" class="form-control" [formControlName]="'seq'" name="sequence"
-                   required>
-            <span *ngIf="!stageForm.get('seq').valid && stageForm.get('seq').touched">
-                  sequence cannot be empty
-                </span>
+            <select id="stage" class="form-control" [formControlName]="'stage'">
+              <option value="" selected disabled >Select Stage</option>
+              <option *ngFor="let stage of stages" [ngValue]="stage">{{stage.name}}</option>
+            </select>
           </div>
         </div>
         <div class="form-group row">
-          <label for="nextStage" class="col-md-4 col-form-label text-md-right">Next Stage</label>
+          <label for="employee" class="col-md-4 col-form-label text-md-right">Employee</label>
           <div class="col-md-6">
-            <select id="nextStage" class="form-control" [formControlName]="'nextStage'">
-              <option value="" selected disabled >Select Next Stage</option>
-              <option *ngFor="let stage of stages" [ngValue]="stage">{{stage.name}}</option>
+            <select id="employee" class="form-control" [formControlName]="'employee'">
+              <option value="" selected disabled >Select Employee</option>
+              <option *ngFor="let employee of employees" [ngValue]="employee">{{employee.fullName}}</option>
             </select>
           </div>
         </div>

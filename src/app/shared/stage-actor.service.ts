@@ -14,8 +14,8 @@ export class StageActorService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // get all stages list from server
-  getAllStages(): Observable<Array<StageActorPayload>> {
+  // get all stage actors list from server
+  getAllStageActors(): Observable<Array<StageActorPayload>> {
     return this.httpClient.get<Array<StageActorPayload>>(this.serverUrl + 'api/stage');
   }
 

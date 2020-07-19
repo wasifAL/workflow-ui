@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "workflow-ui"
+    }
+  },
+  "defaultProject": "workflow-ui",
+  "cli": {
+    "analytics": false
+  }
 }
