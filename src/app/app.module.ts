@@ -25,6 +25,7 @@ import {ApplicationComponent} from './application/application.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {UserComponent} from './user/user.component';
+import { StageactionComponent } from './stageaction/stageaction.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {UserComponent} from './user/user.component';
     StageactorComponent,
     ApplicationComponent,
     SidebarComponent,
-    UserComponent
+    UserComponent,
+    StageactionComponent
   ],
   imports: [
     BrowserModule,

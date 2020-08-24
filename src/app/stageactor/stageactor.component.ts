@@ -8,6 +8,7 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {StageActorService} from '../shared/stage-actor.service';
 import {UserPayload} from '../user/user.payload';
 import {UserService} from '../shared/user.service';
+import {AuthService} from '../auth/shared/auth.service';
 
 @Component({
   selector: 'app-stageactor',
@@ -21,7 +22,7 @@ export class StageactorComponent implements OnInit {
   stageActorForm: FormGroup;
   stageActor: StageActorPayload;
 
-  constructor(private stageActorService: StageActorService, private userService: UserService, private stageService: StageService, private toaster: ToastrService, private modalService: NgbModal,
+  constructor(private stageActorService: StageActorService, private authService: AuthService,  private userService: UserService, private stageService: StageService, private toaster: ToastrService, private modalService: NgbModal,
               private config: NgbModalConfig) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -75,7 +76,11 @@ export class StageactorComponent implements OnInit {
   // modal action open
   // tslint:disable-next-line:typedef
   open(content) {
-    this.modalService.open(content, {centered: true});
+    if (this.authService.getRole() != 'USER') {
+      this.modalService.open(content, {centered: true});
+    } else {
+      this.toaster.error('Only Admins are allowed to assign Stage Actor');
+    }
   }
 
   // modal action close

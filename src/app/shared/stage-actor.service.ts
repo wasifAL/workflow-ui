@@ -16,11 +16,11 @@ export class StageActorService {
 
   // get all stage actors list from server
   getAllStageActors(): Observable<Array<StageActorPayload>> {
-    return this.httpClient.get<Array<StageActorPayload>>(this.serverUrl + 'api/stage');
+    return this.httpClient.get<Array<StageActorPayload>>(this.serverUrl + 'api/stageActor');
   }
 
   create(stageActorModel: StageActorPayload): Observable<boolean> {
-    return this.httpClient.post<StageActorPayload>(this.serverUrl + 'api/stage/', stageActorModel)
+    return this.httpClient.post<StageActorPayload>(this.serverUrl + 'api/stageActor/', stageActorModel)
       .pipe(map(data => {
         return true;
       }));

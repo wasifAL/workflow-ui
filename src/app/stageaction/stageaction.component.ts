@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {ApplicationPayload} from '../application/application.payload';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ApplicationService} from '../shared/application.service';
+import {AuthService} from '../auth/shared/auth.service';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-stageaction',
@@ -7,9 +14,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StageactionComponent implements OnInit {
 
-  constructor() { }
+  applications: Array<ApplicationPayload> = [];
+  applicationForm: FormGroup;
+  application: ApplicationPayload;
 
-  ngOnInit(): void {
+  constructor(private applicationService: ApplicationService, private authService: AuthService, private router: Router, private toaster: ToastrService, private modalService: NgbModal,
+              private config: NgbModalConfig) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+    this.application = {
+      id: 0,
+      reqfund: 0,
+      appfund: 0,
+      yearlyIncome: 0,
+      officeName: '',
+      officeAddress: '',
+      designation: '',
+      actionCount: 0,
+      stageActorId: 0,
+      stageActorDetails: '',
+      applicantId: 0,
+      applicantDetails: ''
+    };
   }
 
+  ngOnInit(): void {
+    // get all stages list from server
+    this.applicationService.getAllApplications().subscribe(applications => {
+      this.applications = applications;
+    });
+    this.applicationForm = new FormGroup({
+      reqfund: new FormControl('', Validators.required),
+      yearlyIncome: new FormControl('', Validators.required),
+      officeName: new FormControl('', Validators.required),
+      designation: new FormControl(''),
+      officeAddress: new FormControl('')
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  create() {
+    this.application.reqfund = this.applicationForm.get('reqfund').value;
+    this.application.yearlyIncome = this.applicationForm.get('yearlyIncome').value;
+    this.application.officeAddress = this.applicationForm.get('officeAddress').value;
+    this.application.officeName = this.applicationForm.get('officeName').value;
+    this.application.designation = this.applicationForm.get('designation').value;
+    this.applicationService.create(this.application).subscribe(() => {
+      this.toaster.success('Application Created Successful');
+      window.location.reload();
+    }, () => {
+      this.toaster.error('Error in Application Creation');
+    });
+  }
 }

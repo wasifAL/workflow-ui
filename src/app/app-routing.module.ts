@@ -8,6 +8,7 @@ import {ApplicationComponent} from './application/application.component';
 import {HomeComponent} from './home/home.component';
 import {AuthGuard} from './auth/auth.guard';
 import {UserComponent} from './user/user.component';
+import {StageactionComponent} from './stageaction/stageaction.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'stage', component: StageComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
   {path: 'stage-actor', component: StageactorComponent, canActivate: [AuthGuard]},
-  {path: 'application', component: ApplicationComponent, canActivate: [AuthGuard]}
+  {path: 'application', component: ApplicationComponent, canActivate: [AuthGuard]},
+  {path: 'stage-action', component: StageactionComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

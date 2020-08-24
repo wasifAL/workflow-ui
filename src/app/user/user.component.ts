@@ -4,6 +4,7 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserPayload} from './user.payload';
 import {UserService} from '../shared/user.service';
+import {AuthService} from '../auth/shared/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,7 @@ export class UserComponent implements OnInit {
     EMPLOYEE: 'Employee'
   };
 
-  constructor(private userService: UserService, private toaster: ToastrService, private modalService: NgbModal,
+  constructor(private userService: UserService, private authService: AuthService, private toaster: ToastrService, private modalService: NgbModal,
               private config: NgbModalConfig) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -89,7 +90,11 @@ export class UserComponent implements OnInit {
   // modal action open
   // tslint:disable-next-line:typedef
   open(content) {
-    this.modalService.open(content, {centered: true});
+    if (this.authService.getRole() != 'USER') {
+      this.modalService.open(content, {centered: true});
+    } else {
+      this.toaster.error('Only Admins are allowed to create user');
+    }
   }
 
   // modal action close

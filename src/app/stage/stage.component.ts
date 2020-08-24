@@ -4,6 +4,7 @@ import {StageService} from '../shared/stage.service';
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../auth/shared/auth.service';
 
 @Component({
   selector: 'app-stage',
@@ -16,7 +17,8 @@ export class StageComponent implements OnInit {
   stageForm: FormGroup;
   stageModel: StagePayload;
 
-  constructor(private stageService: StageService, private toaster: ToastrService, private modalService: NgbModal,
+
+  constructor(private stageService: StageService, private authService: AuthService, private toaster: ToastrService, private modalService: NgbModal,
               private config: NgbModalConfig) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -65,7 +67,11 @@ export class StageComponent implements OnInit {
   // modal action open
   // tslint:disable-next-line:typedef
   open(content) {
-    this.modalService.open(content, {centered: true});
+    if (this.authService.getRole() != 'USER') {
+      this.modalService.open(content, {centered: true});
+    } else {
+      this.toaster.error('Only admins are allowed to create stage');
+    }
   }
 
   // modal action close
